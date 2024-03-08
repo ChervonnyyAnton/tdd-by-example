@@ -5,7 +5,8 @@ public class Money {
 
     public boolean equals(Object object){
         if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
+        if (object == null || this.getClass() != object.getClass()) return false;
+
         Money money = (Money) object;
         return amount == money.amount;
     }
