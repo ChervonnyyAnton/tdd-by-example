@@ -2,8 +2,7 @@ package guru.springframework;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MoneyTest {
     @Test
@@ -19,17 +18,20 @@ public class MoneyTest {
     public void testReduceMoneyDifferentCurrency(){
         Bank bank = new Bank();
         bank.addRate("CHF", "USD", 2);
-        Money result = bank.reduce(Money.frank(2), "USD");
+        Money result = bank.reduce(Money.frank(2));
         assertEquals(Money.dollar(1), result);
     }
 
     @Test
     public void testMoneyEquality() {
-        assertEquals(Money.dollar(5),Money.dollar(5));
-        assertEquals(Money.frank(5), Money.frank(5));
+        var fiveD = Money.dollar(5);
+        var anotherFiveD = Money.dollar(5);
+        var sixD = Money.dollar(6);
+        var fiveF = Money.frank(5);
 
-        assertNotEquals(Money.dollar(5), Money.dollar(6));
-        assertNotEquals(Money.dollar(5), Money.frank(5));
+        assertEquals(fiveD, anotherFiveD);
+        assertNotEquals(fiveD, sixD);
+        assertNotEquals(fiveD, fiveF);
     }
 
     @Test
@@ -50,7 +52,7 @@ public class MoneyTest {
         Expression tenF = Money.frank(10);
         Bank bank = new Bank();
         bank.addRate("CHF", "USD", 2);
-        Money result = bank.reduce(fiveD.plus(tenF), "USD");
+        Money result = bank.reduce(fiveD.plus(tenF));
         assertEquals(Money.dollar(10), result);
     }
 
@@ -59,7 +61,7 @@ public class MoneyTest {
         Money five = Money.dollar(5);
         Expression sum = five.plus(five);
         Bank bank = new Bank();
-        Money reduced = bank.reduce(sum, "USD");
+        Money reduced = bank.reduce(sum);
         assertEquals(Money.dollar(10), reduced);
     }
 
@@ -76,14 +78,14 @@ public class MoneyTest {
     public void testReduceSum(){
         Expression sum = new Sum(Money.dollar(3), Money.dollar(4));
         Bank bank = new Bank();
-        Money result = bank.reduce(sum, "USD");
+        Money result = bank.reduce(sum);
         assertEquals(Money.dollar(7), result);
     }
 
     @Test
     public void testReduceMoney(){
         Bank bank = new Bank();
-        Money result = bank.reduce(Money.dollar(1), "USD");
+        Money result = bank.reduce(Money.dollar(1));
         assertEquals(Money.dollar(1), result);
     }
 
@@ -94,7 +96,7 @@ public class MoneyTest {
         Bank bank = new Bank();
         bank.addRate("CHF", "USD", 2);
         Expression sum = new Sum(fiveD, tenF).plus(fiveD);
-        Money result = bank.reduce(sum, "USD");
+        Money result = bank.reduce(sum);
         assertEquals(Money.dollar(15), result);
     }
 
@@ -105,7 +107,37 @@ public class MoneyTest {
         Bank bank = new Bank();
         bank.addRate("CHF", "USD", 2);
         Expression sum = new Sum(fiveD, tenF).times(2);
-        Money result = bank.reduce(sum, "USD");
+        Money result = bank.reduce(sum);
         assertEquals(Money.dollar(20), result);
+    }
+
+    @Test
+    public void testToString_usd() {
+        Money money = new Money(150, "USD");
+
+        String expected = "Money{amount=150, currency='USD'}";
+        String actual = money.toString();
+
+        assertEquals(expected, actual, "toString method for USD doesn't work as expected");
+    }
+
+    @Test
+    public void testToString_chf() {
+        Money money = new Money(100, "CHF");
+
+        String expected = "Money{amount=100, currency='CHF'}";
+        String actual = money.toString();
+
+        assertEquals(expected, actual, "toString method for CHF doesn't work as expected");
+    }
+
+    @Test
+    public void testToString_zeroAmount() {
+        Money money = new Money(0, "USD");
+
+        String expected = "Money{amount=0, currency='USD'}";
+        String actual = money.toString();
+
+        assertEquals(expected, actual, "toString method for zero amount doesn't work as expected");
     }
 }

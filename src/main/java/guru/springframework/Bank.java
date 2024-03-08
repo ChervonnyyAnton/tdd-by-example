@@ -4,9 +4,9 @@ import java.util.HashMap;
 
 public class Bank {
 
-    private HashMap<Pair, Integer> rates = new HashMap<>();
-    Money reduce(Expression source, String toCurrency) {
-        return source.reduce(this, toCurrency);
+    private final HashMap<Pair, Integer> rates = new HashMap<>();
+    Money reduce(Expression source) {
+        return source.reduce(this, "USD");
     }
 
     public void addRate(String source, String toCurrency, int rate) {
