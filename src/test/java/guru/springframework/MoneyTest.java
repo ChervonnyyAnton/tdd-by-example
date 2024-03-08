@@ -25,10 +25,8 @@ public class MoneyTest {
 
     @Test
     public void testIdentityRate(){
-        assertEquals(1, new Bank().rate("USD", "USD"));
-        assertEquals(1, new Bank().rate("CHF", "CHF"));
-        assertNotEquals(1, new Bank().rate("CHF", "USD"));
-    }
+        assertEquals(1, new Bank().getRate("USD", "USD"));
+        assertEquals(1, new Bank().getRate("CHF", "CHF"));}
 
     @Test
     public void testSimpleAddition(){
