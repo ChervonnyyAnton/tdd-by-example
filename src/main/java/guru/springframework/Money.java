@@ -3,6 +3,7 @@ package guru.springframework;
 public abstract class Money {
     protected int amount;
     public abstract Money times(int multiplier);
+    public abstract String getCurrency();
 
     public static Money dollar(int amount){
         return new Dollar(amount);
