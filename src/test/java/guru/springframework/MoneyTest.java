@@ -9,15 +9,14 @@ public class MoneyTest {
     @Test
     public void testMultiplicationDollar(){
         Dollar five = new Dollar(5);
-        Dollar product = five.times(2);
-        assertEquals(new Dollar(10), product);
-        product = five.times(3);
-        assertEquals(new Dollar(15), product);
+        assertEquals(new Dollar(10), five.times(2));
+        assertEquals(new Dollar(15), five.times(3));
     }
 
     @Test
-    public void testEqualityDollar() {
+    public void testMoneyEquality() {
         assertEquals(new Dollar(5),new Dollar(5));
+        assertEquals(new Frank(5), new Frank(5));
         assertNotEquals(new Dollar(5), new Dollar(6));
         assertNotEquals(new Dollar(5), new Frank(5));
     }
@@ -25,15 +24,7 @@ public class MoneyTest {
     @Test
     public void testMultiplicationFrank(){
         Frank five = new Frank(5);
-        Frank product = five.times(2);
-        assertEquals(new Frank(10), product);
-        product = five.times(3);
-        assertEquals(new Frank(15), product);
-    }
-
-    @Test
-    public void testEqualityFrank() {
-        assertEquals(new Frank(5),new Frank(5));
-        assertNotEquals(new Frank(5), new Frank(6));
+        assertEquals(new Frank(10), five.times(2));
+        assertEquals(new Frank(15), five.times(3));
     }
 }
