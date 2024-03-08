@@ -2,15 +2,25 @@ package guru.springframework;
 
 public abstract class Money {
     protected int amount;
+    protected String currency;
+
+    public Money(int amount, String currency) {
+        this.amount = amount;
+        this.currency = currency;
+    }
+
     public abstract Money times(int multiplier);
-    public abstract String getCurrency();
 
     public static Money dollar(int amount){
-        return new Dollar(amount);
+        return new Dollar(amount, "USD");
     }
 
     public static Money frank(int amount){
-        return new Frank(amount);
+        return new Frank(amount, "CHF");
+    }
+
+    public String getCurrency() {
+        return currency;
     }
 
     public boolean equals(Object object){
