@@ -10,11 +10,11 @@ public class Money {
     }
 
     public static Money dollar(int amount){
-        return new Dollar(amount, "USD");
+        return new Money(amount, "USD");
     }
 
     public static Money frank(int amount){
-        return new Frank(amount, "CHF");
+        return new Money(amount, "CHF");
     }
 
     public String getCurrency() {
