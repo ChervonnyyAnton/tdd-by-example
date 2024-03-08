@@ -1,13 +1,14 @@
 package guru.springframework;
 
-public class Money {
+public abstract class Money {
     protected int amount;
+    public abstract Money times(int multiplier);
 
-    public static Dollar dollar(int amount){
+    public static Money dollar(int amount){
         return new Dollar(amount);
     }
 
-    public static Frank frank(int amount){
+    public static Money frank(int amount){
         return new Frank(amount);
     }
 
